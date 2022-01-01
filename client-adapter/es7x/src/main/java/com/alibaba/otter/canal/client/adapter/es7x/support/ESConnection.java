@@ -313,7 +313,14 @@ public class ESConnection {
             }
             return this;
         }
-
+        public ESSearchRequest setRouting(String routing) {
+            if (mode == ESClientMode.TRANSPORT) {
+                searchRequestBuilder.setRouting(routing);
+            } else {
+                searchRequest.routing(routing);
+            }
+            return this;
+        }
         public ESSearchRequest size(int size) {
             if (mode == ESClientMode.TRANSPORT) {
                 searchRequestBuilder.setSize(size);

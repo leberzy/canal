@@ -15,6 +15,9 @@ import com.alibaba.otter.canal.client.adapter.support.AdapterConfig;
  */
 public class ESSyncConfig implements AdapterConfig {
 
+
+    public final static String _routingFieldFlag = "$routingField";
+
     private String    dataSourceKey;    // 数据源key
 
     private String    outerAdapterKey;  // adapter key
@@ -113,6 +116,11 @@ public class ESSyncConfig implements AdapterConfig {
         private Long                         syncInterval;                           // 同步时间间隔
 
         private SchemaItem                   schemaItem;                             // sql解析结果模型
+
+        // 自定义路由字段
+        private String                       routingField;
+
+
 
         public String get_index() {
             return _index;
@@ -224,6 +232,14 @@ public class ESSyncConfig implements AdapterConfig {
 
         public void setSchemaItem(SchemaItem schemaItem) {
             this.schemaItem = schemaItem;
+        }
+
+        public String getRoutingField() {
+            return routingField;
+        }
+
+        public void setRoutingField(String routingField) {
+            this.routingField = routingField;
         }
     }
 

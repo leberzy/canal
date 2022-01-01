@@ -2,11 +2,7 @@ package com.alibaba.otter.canal.client.adapter.es7x.support;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -66,20 +62,22 @@ public class ES7xTemplate implements ESTemplate {
 
     @Override
     public void insert(ESMapping mapping, Object pkVal, Map<String, Object> esFieldData) {
+        String parentVal = (String) esFieldData.remove("$parent_routing");
+        String $routingField = (String) esFieldData.getOrDefault(ESSyncConfig._routingFieldFlag, parentVal);
+
         if (mapping.get_id() != null) {
-            String parentVal = (String) esFieldData.remove("$parent_routing");
             if (mapping.isUpsert()) {
                 ESUpdateRequest updateRequest = esConnection.new ES7xUpdateRequest(mapping.get_index(),
                     pkVal.toString()).setDoc(esFieldData).setDocAsUpsert(true);
-                if (StringUtils.isNotEmpty(parentVal)) {
-                    updateRequest.setRouting(parentVal);
+                if (StringUtils.isNotEmpty($routingField)) {
+                    updateRequest.setRouting($routingField);
                 }
                 getBulk().add(updateRequest);
             } else {
                 ESIndexRequest indexRequest = esConnection.new ES7xIndexRequest(mapping.get_index(), pkVal.toString())
                     .setSource(esFieldData);
-                if (StringUtils.isNotEmpty(parentVal)) {
-                    indexRequest.setRouting(parentVal);
+                if (StringUtils.isNotEmpty($routingField)) {
+                    indexRequest.setRouting($routingField);
                 }
                 getBulk().add(indexRequest);
             }
@@ -88,11 +86,21 @@ public class ES7xTemplate implements ESTemplate {
             ESSearchRequest esSearchRequest = this.esConnection.new ESSearchRequest(mapping.get_index())
                 .setQuery(QueryBuilders.termQuery(mapping.getPk(), pkVal))
                 .size(10000);
+
+            // 自定义路由
+            if (StringUtils.isNotBlank($routingField)) {
+                esSearchRequest.setRouting($routingField);
+            }
             SearchResponse response = esSearchRequest.getResponse();
 
             for (SearchHit hit : response.getHits()) {
                 ESUpdateRequest esUpdateRequest = this.esConnection.new ES7xUpdateRequest(mapping.get_index(),
                     hit.getId()).setDoc(esFieldData);
+
+                // 自定义路由
+                if (StringUtils.isNotBlank($routingField)){
+                    esUpdateRequest.setRouting($routingField);
+                }
                 getBulk().add(esUpdateRequest);
                 commitBulk();
             }
@@ -206,6 +214,7 @@ public class ES7xTemplate implements ESTemplate {
         SchemaItem schemaItem = mapping.getSchemaItem();
         String idFieldName = mapping.get_id() == null ? mapping.getPk() : mapping.get_id();
         Object resultIdVal = null;
+        String routingField = mapping.getRoutingField();
         for (FieldItem fieldItem : schemaItem.getSelectFields().values()) {
             Object value = getValFromRS(mapping, resultSet, fieldItem.getFieldName(), fieldItem.getFieldName());
 
@@ -216,6 +225,11 @@ public class ES7xTemplate implements ESTemplate {
             if (!fieldItem.getFieldName().equals(mapping.get_id())
                 && !mapping.getSkips().contains(fieldItem.getFieldName())) {
                 esFieldData.put(Util.cleanColumn(fieldItem.getFieldName()), value);
+            }
+
+            // 自定义路由
+            if (Objects.equals(Util.cleanColumn(routingField), Util.cleanColumn(fieldItem.getFieldName()))) {
+                esFieldData.put(ESSyncConfig._routingFieldFlag, Objects.toString(value));
             }
         }
 
@@ -292,6 +306,7 @@ public class ES7xTemplate implements ESTemplate {
         SchemaItem schemaItem = mapping.getSchemaItem();
         String idFieldName = mapping.get_id() == null ? mapping.getPk() : mapping.get_id();
         Object resultIdVal = null;
+        String routingField = mapping.getRoutingField();
         for (FieldItem fieldItem : schemaItem.getSelectFields().values()) {
             String columnName = fieldItem.getColumnItems().iterator().next().getColumnName();
             Object value = getValFromData(mapping, dmlData, fieldItem.getFieldName(), columnName);
@@ -303,6 +318,11 @@ public class ES7xTemplate implements ESTemplate {
             if (!fieldItem.getFieldName().equals(mapping.get_id())
                 && !mapping.getSkips().contains(fieldItem.getFieldName())) {
                 esFieldData.put(Util.cleanColumn(fieldItem.getFieldName()), value);
+            }
+
+            // 自定义路由
+            if (Objects.equals(Util.cleanColumn(fieldItem.getFieldName()), Util.cleanColumn(routingField))) {
+                esFieldData.put(ESSyncConfig._routingFieldFlag, Objects.toString(value));
             }
         }
 
@@ -320,10 +340,12 @@ public class ES7xTemplate implements ESTemplate {
         for (FieldItem fieldItem : schemaItem.getSelectFields().values()) {
             String columnName = fieldItem.getColumnItems().iterator().next().getColumnName();
 
+            // 主键值
             if (fieldItem.getFieldName().equals(idFieldName)) {
                 resultIdVal = getValFromData(mapping, dmlData, fieldItem.getFieldName(), columnName);
             }
 
+            // 变更的字段
             if (dmlOld.containsKey(columnName) && !mapping.getSkips().contains(fieldItem.getFieldName())) {
                 esFieldData.put(Util.cleanColumn(fieldItem.getFieldName()),
                         getValFromData(mapping, dmlData, fieldItem.getFieldName(), columnName));
@@ -345,20 +367,24 @@ public class ES7xTemplate implements ESTemplate {
     }
 
     private void append4Update(ESMapping mapping, Object pkVal, Map<String, Object> esFieldData) {
+
+        // 路由策略
+        String parentVal = (String) esFieldData.remove("$parent_routing");
+        String $routingField = (String) esFieldData.getOrDefault(ESSyncConfig._routingFieldFlag, parentVal);
+
         if (mapping.get_id() != null) {
-            String parentVal = (String) esFieldData.remove("$parent_routing");
             if (mapping.isUpsert()) {
                 ESUpdateRequest esUpdateRequest = this.esConnection.new ES7xUpdateRequest(mapping.get_index(),
                     pkVal.toString()).setDoc(esFieldData).setDocAsUpsert(true);
-                if (StringUtils.isNotEmpty(parentVal)) {
-                    esUpdateRequest.setRouting(parentVal);
+                if (StringUtils.isNotEmpty($routingField)) {
+                    esUpdateRequest.setRouting($routingField);
                 }
                 getBulk().add(esUpdateRequest);
             } else {
                 ESUpdateRequest esUpdateRequest = this.esConnection.new ES7xUpdateRequest(mapping.get_index(),
                     pkVal.toString()).setDoc(esFieldData);
-                if (StringUtils.isNotEmpty(parentVal)) {
-                    esUpdateRequest.setRouting(parentVal);
+                if (StringUtils.isNotEmpty($routingField)) {
+                    esUpdateRequest.setRouting($routingField);
                 }
                 getBulk().add(esUpdateRequest);
             }
@@ -366,10 +392,16 @@ public class ES7xTemplate implements ESTemplate {
             ESSearchRequest esSearchRequest = this.esConnection.new ESSearchRequest(mapping.get_index())
                 .setQuery(QueryBuilders.termQuery(mapping.getPk(), pkVal))
                 .size(10000);
+            if (StringUtils.isNotBlank($routingField)){
+                esSearchRequest.setRouting($routingField);
+            }
             SearchResponse response = esSearchRequest.getResponse();
             for (SearchHit hit : response.getHits()) {
                 ESUpdateRequest esUpdateRequest = this.esConnection.new ES7xUpdateRequest(mapping.get_index(),
                     hit.getId()).setDoc(esFieldData);
+                if (StringUtils.isNotBlank($routingField)){
+                    esUpdateRequest.setRouting($routingField);
+                }
                 getBulk().add(esUpdateRequest);
             }
         }
