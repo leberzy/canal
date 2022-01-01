@@ -15,7 +15,7 @@ public class CanalAdapterApplication {
     public static void main(String[] args) {
 
         SpringApplication application = new SpringApplication(CanalAdapterApplication.class);
-        application.setBannerMode(Banner.Mode.OFF);
+//        application.setBannerMode(Banner.Mode.OFF);
         application.run(args);
     }
 }

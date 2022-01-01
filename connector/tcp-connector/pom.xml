@@ -11,20 +11,20 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>connector.tcp</artifactId>
     <packaging>jar</packaging>
-    <name>canal connector tcp module for otter ${project.version}</name>
+    <name>canal connector tcp</name>
 
     <dependencies>
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>connector.core</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>canal.protocol</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>com.alibaba.otter</groupId>

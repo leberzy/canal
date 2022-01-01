@@ -9,7 +9,7 @@
 	<groupId>com.alibaba.otter</groupId>
 	<artifactId>canal.meta</artifactId>
 	<packaging>jar</packaging>
-	<name>canal meta module for otter ${project.version}</name>
+	<name>canal meta</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba.otter</groupId>

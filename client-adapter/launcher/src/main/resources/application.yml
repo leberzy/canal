@@ -7,7 +7,7 @@ spring:
     default-property-inclusion: non_null
 
 canal.conf:
-  mode: tcp #tcp kafka rocketMQ rabbitMQ
+  mode: kafka #tcp kafka rocketMQ rabbitMQ
   flatMessage: true
   zookeeperHosts:
   syncBatchSize: 1000
@@ -23,7 +23,7 @@ canal.conf:
     canal.tcp.username:
     canal.tcp.password:
     # kafka consumer
-    kafka.bootstrap.servers: 127.0.0.1:9092
+    kafka.bootstrap.servers: 192.168.127.135:9092
     kafka.enable.auto.commit: false
     kafka.auto.commit.interval.ms: 1000
     kafka.auto.offset.reset: latest
@@ -46,13 +46,13 @@ canal.conf:
     rabbitmq.password:
     rabbitmq.resource.ownerId:
 
-#  srcDataSources:
-#    defaultDS:
-#      url: jdbc:mysql://127.0.0.1:3306/mytest?useUnicode=true
-#      username: root
-#      password: 121212
+  srcDataSources:
+    defaultDS:
+      url: jdbc:mysql://192.168.127.147:3306/demo01?useUnicode=true
+      username: root
+      password: root
   canalAdapters:
-  - instance: example # canal instance Name or mq topic name
+  - instance: data_trans_topic # canal instance Name or mq topic name
     groups:
     - groupId: g1
       outerAdapters:
@@ -85,12 +85,12 @@ canal.conf:
 #          hbase.zookeeper.quorum: 127.0.0.1
 #          hbase.zookeeper.property.clientPort: 2181
 #          zookeeper.znode.parent: /hbase
-#      - name: es
-#        hosts: 127.0.0.1:9300 # 127.0.0.1:9200 for rest mode
-#        properties:
-#          mode: transport # or rest
-#          # security.auth: test:123456 #  only used for rest mode
-#          cluster.name: elasticsearch
+      - name: es7
+        hosts: http://192.168.127.135:9200 # 127.0.0.1:9200 for rest mode
+        properties:
+          mode: rest # or rest
+          # security.auth: test:123456 #  only used for rest mode
+          cluster.name: es_application
 #        - name: kudu
 #          key: kudu
 #          properties:

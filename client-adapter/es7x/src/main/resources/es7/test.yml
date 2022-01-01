@@ -1,0 +1,15 @@
+dataSourceKey: defaultDS
+destination: data_trans_topic
+groupId: g1
+esMapping:
+  _index: db_test
+  _id: _id
+#  relations:
+#    customer_order:
+#      name: order
+#      parent: customer_id
+  sql: "select a.id as _id,a.name,a.age,a.address from demo01.test a"
+#  skips:
+#    - customer_id
+  etlCondition: "where t.c_time>={}"
+  commitBatch: 3000

@@ -10,7 +10,7 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>client-adapter.logger</artifactId>
     <packaging>jar</packaging>
-    <name>canal client adapter logger example module for otter ${project.version}</name>
+    <name>canal client adapter logger example</name>
     <dependencies>
         <dependency>
             <groupId>com.alibaba.otter</groupId>

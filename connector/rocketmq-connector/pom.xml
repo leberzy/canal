@@ -11,7 +11,7 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>connector.rocketmq</artifactId>
     <packaging>jar</packaging>
-    <name>canal connector rocketMQ module for otter ${project.version}</name>
+    <name>canal connector rocketMQ</name>
 
     <properties>
         <rocketmq_version>4.8.0</rocketmq_version>

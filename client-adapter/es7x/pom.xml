@@ -10,7 +10,7 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>client-adapter.es7x</artifactId>
     <packaging>jar</packaging>
-    <name>canal client adapter es v7x module for otter ${project.version}</name>
+    <name>canal client adapter es v7x</name>
 
     <dependencies>
         <dependency>
@@ -27,22 +27,27 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>7.3.0</version>
+            <version>7.4.2</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>transport</artifactId>
-            <version>7.3.0</version>
+            <version>7.4.2</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-client</artifactId>
-            <version>7.3.0</version>
+            <version>7.4.2</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>7.3.0</version>
+            <version>7.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-x-content</artifactId>
+            <version>7.4.2</version>
         </dependency>
 
         <dependency>

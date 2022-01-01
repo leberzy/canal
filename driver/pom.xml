@@ -9,7 +9,7 @@
 	<groupId>com.alibaba.otter</groupId>
 	<artifactId>canal.parse.driver</artifactId>
 	<packaging>jar</packaging>
-	<name>canal driver module for otter ${project.version}</name>
+	<name>canal driver</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba.otter</groupId>

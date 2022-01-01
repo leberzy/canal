@@ -12,7 +12,7 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>client-adapter.phoenix</artifactId>
     <packaging>jar</packaging>
-    <name>canal client adapter phoenix module for otter ${project.version}</name>
+    <name>canal client adapter phoenix</name>
 
 
     <dependencies>
@@ -84,7 +84,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.48</version>
+            <version>8.0.27</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -10,7 +10,7 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>client-adapter.launcher</artifactId>
     <packaging>jar</packaging>
-    <name>canal client adapter launcher module for otter ${project.version}</name>
+    <name>adapter launcher</name>
 
     <dependencyManagement>
         <dependencies>
@@ -60,10 +60,13 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
+            <version>11.2.0.4.0-atlassian-hosted</version>
         </dependency>
+
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
@@ -81,13 +84,13 @@
             <artifactId>client-adapter.logger</artifactId>
             <version>${project.version}</version>
             <exclusions>
-                <exclusion>
-                    <artifactId>*</artifactId>
-                    <groupId>*</groupId>
-                </exclusion>
+<!--                <exclusion>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                    <groupId>*</groupId>-->
+<!--                </exclusion>-->
             </exclusions>
             <classifier>jar-with-dependencies</classifier>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>com.alibaba.otter</groupId>
@@ -102,45 +105,87 @@
             <classifier>jar-with-dependencies</classifier>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba.otter</groupId>
-            <artifactId>client-adapter.es6x</artifactId>
-            <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>*</artifactId>
-                    <groupId>*</groupId>
-                </exclusion>
-            </exclusions>
-            <classifier>jar-with-dependencies</classifier>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.otter</groupId>-->
+<!--            <artifactId>client-adapter.es6x</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                    <groupId>*</groupId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--            <classifier>jar-with-dependencies</classifier>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>client-adapter.es7x</artifactId>
             <version>${project.version}</version>
             <exclusions>
                 <exclusion>
-                    <artifactId>*</artifactId>
-                    <groupId>*</groupId>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>transport</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>elasticsearch-rest-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch-x-content</artifactId>
                 </exclusion>
             </exclusions>
             <classifier>jar-with-dependencies</classifier>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
+        </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>7.4.2</version>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.otter</groupId>
-            <artifactId>client-adapter.rdb</artifactId>
-            <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>*</artifactId>
-                    <groupId>*</groupId>
-                </exclusion>
-            </exclusions>
-            <classifier>jar-with-dependencies</classifier>
-            <scope>provided</scope>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>transport</artifactId>
+            <version>7.4.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>7.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-x-content</artifactId>
+            <version>7.4.2</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.otter</groupId>-->
+<!--            <artifactId>client-adapter.rdb</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                    <groupId>*</groupId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--            <classifier>jar-with-dependencies</classifier>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>client-adapter.tablestore</artifactId>
@@ -173,10 +218,10 @@
             <artifactId>connector.kafka</artifactId>
             <version>${project.version}</version>
             <exclusions>
-                <exclusion>
-                    <artifactId>*</artifactId>
-                    <groupId>*</groupId>
-                </exclusion>
+<!--                <exclusion>-->
+<!--                    <artifactId>*</artifactId>-->
+<!--                    <groupId>*</groupId>-->
+<!--                </exclusion>-->
             </exclusions>
             <classifier>jar-with-dependencies</classifier>
             <scope>provided</scope>

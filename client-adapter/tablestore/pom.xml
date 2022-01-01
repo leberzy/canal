@@ -10,7 +10,7 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>client-adapter.tablestore</artifactId>
     <packaging>jar</packaging>
-    <name>canal client adapter rdb module for otter ${project.version}</name>
+    <name>canal client adapter rdb</name>
 
     <dependencies>
         <dependency>

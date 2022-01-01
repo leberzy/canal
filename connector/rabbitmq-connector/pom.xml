@@ -11,7 +11,7 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>connector.rabbitmq</artifactId>
     <packaging>jar</packaging>
-    <name>canal connector rabbitmq module for otter ${project.version}</name>
+    <name>canal connector rabbitmq</name>
 
     <dependencies>
         <dependency>

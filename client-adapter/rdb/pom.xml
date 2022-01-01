@@ -10,14 +10,13 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>client-adapter.rdb</artifactId>
     <packaging>jar</packaging>
-    <name>canal client adapter rdb module for otter ${project.version}</name>
+    <name>canal client adapter rdb</name>
 
     <dependencies>
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>client-adapter.common</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -29,11 +28,11 @@
             <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.oracle</groupId>-->
+<!--            <artifactId>ojdbc6</artifactId>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>

@@ -9,7 +9,7 @@
 	<groupId>com.alibaba.otter</groupId>
 	<artifactId>canal.protocol</artifactId>
 	<packaging>jar</packaging>
-	<name>canal protocol module for otter ${project.version}</name>
+	<name>canal protocol</name>
 	<url>http://b2b-doc.alibaba-inc.com/display/opentech/Otter</url>
 
 	<dependencies>

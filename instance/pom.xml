@@ -9,7 +9,7 @@
 	<groupId>com.alibaba.otter</groupId>
 	<artifactId>canal.instance</artifactId>
 	<packaging>pom</packaging>
-	<name>canal instance module for otter ${project.version}</name>
+	<name>canal instance</name>
 	
 	<modules>
 		<module>core</module>

@@ -9,7 +9,7 @@
     <groupId>com.alibaba.otter</groupId>
     <artifactId>connector.core</artifactId>
     <packaging>jar</packaging>
-    <name>canal connector core module for otter ${project.version}</name>
+    <name>canal connector core</name>
 
     <dependencies>
         <dependency>

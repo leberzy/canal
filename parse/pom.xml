@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>canal.parse</artifactId>
 	<packaging>jar</packaging>
-	<name>canal parse module for otter ${project.version}</name>
+	<name>canal parse</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba.otter</groupId>
